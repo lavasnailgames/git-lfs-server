@@ -1,0 +1,18 @@
+version: '3'
+name: git-lfs-server
+services:
+  giftless:
+    image: datopian/giftless
+    ports:
+      - "5000:5000"
+      - "8080:8080"
+    environment:
+      - STORAGE_DIR=/lfs-storage
+    volumes:
+      - /home/nemkin/Data/git-lfs-server/lfs-storage:/lfs-storage
+    command: >
+      -M -T --threads 2 -p 2 --manage-script-name --callable app
+      --http 0.0.0.0:8080
+    restart: always
+    stop_grace_period: 2m
+
